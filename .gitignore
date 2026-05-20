@@ -50,3 +50,6 @@ app/ios/App/build/
 app/ios/App/App/public/
 app/ios/DerivedData/
 *.iml
+
+# Vercel
+.vercel/
