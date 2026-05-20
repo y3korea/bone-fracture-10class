@@ -1,0 +1,52 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Jupyter
+*.nbconvert.ipynb
+
+# Project data — NOT distributed (IRB / patient privacy)
+input/
+data/
+*.dcm
+*.dicom
+
+# Training artifacts (keep only released runs)
+output/run_*/
+!output/run_20260414_045350/
+output/latest
+
+# Optuna / HPO
+*.pkl
+optuna_study.pkl
+optuna.db
+
+# Node / Capacitor / Electron
+node_modules/
+electron-dist/
+app/www/ort/
+app/android/.gradle/
+app/android/.idea/
+app/android/local.properties
+app/android/app/build/
+app/android/build/
+app/android/gradle/wrapper/gradle-wrapper.jar
+app/android/app/src/main/assets/public/
+app/ios/App/Pods/
+app/ios/App/build/
+app/ios/App/App/public/
+app/ios/DerivedData/
+*.iml

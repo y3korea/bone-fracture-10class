@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper(s)."
+title: "Bone Fracture 10-Class Classifier — F1-Optimised Pipeline with AutoML and Cross-Platform Deployment"
+abstract: >-
+  An end-to-end pipeline for 10-class bone-fracture radiograph classification.
+  Includes an F1-optimised training pipeline (Focal loss + class weighting +
+  Mixup + Model EMA, v8), an Optuna-driven AutoML variant (v9) over ConvNeXtV2 /
+  MaxViT / EfficientNetV2 / SwinV2 / FastViT / TinyViT, a FastAPI ONNX inference
+  server, and an on-device cross-platform application (Android, iOS, macOS,
+  Windows) built with Capacitor and Electron.
+type: software
+authors:
+  - family-names: "Ko"
+    given-names: "Y."
+    alias: "y3korea"
+repository-code: "https://github.com/y3korea/bone-fracture-10class"
+license: MIT
+version: "1.0.0"
+date-released: "2026-05-20"
+keywords:
+  - medical-imaging
+  - bone-fracture
+  - radiograph-classification
+  - deep-learning
+  - automl
+  - on-device-inference
+  - onnx-runtime
+  - capacitor
+  - educational

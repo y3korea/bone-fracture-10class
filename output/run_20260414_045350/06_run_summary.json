@@ -1,0 +1,40 @@
+{
+  "run_timestamp": "20260414_045350",
+  "model": "MobileNetV2",
+  "img_size": 128,
+  "batch_size": 64,
+  "epochs": 3,
+  "lr": 0.001,
+  "training_time_sec": 140.1,
+  "best_val_acc": 36.61,
+  "test_acc": 35.96,
+  "num_classes": 10,
+  "class_names": [
+    "Avulsion fracture",
+    "Comminuted fracture",
+    "Fracture Dislocation",
+    "Greenstick fracture",
+    "Hairline Fracture",
+    "Impacted fracture",
+    "Longitudinal fracture",
+    "Oblique fracture",
+    "Pathological fracture",
+    "Spiral Fracture"
+  ],
+  "dataset_total": 1129,
+  "train_samples": 903,
+  "val_samples": 112,
+  "test_samples": 114,
+  "per_class_acc": {
+    "Avulsion fracture": 45.45,
+    "Comminuted fracture": 26.67,
+    "Fracture Dislocation": 11.76,
+    "Greenstick fracture": 70.0,
+    "Hairline Fracture": 27.27,
+    "Impacted fracture": 50.0,
+    "Longitudinal fracture": 16.67,
+    "Oblique fracture": 27.27,
+    "Pathological fracture": 66.67,
+    "Spiral Fracture": 42.86
+  }
+}

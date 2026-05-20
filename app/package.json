@@ -1,0 +1,55 @@
+{
+  "name": "fracture-classifier-app",
+  "version": "1.0.0",
+  "description": "Bone Fracture Classifier — 웹사이트 기반 모바일/데스크탑 앱 (on-device ONNX 추론)",
+  "main": "electron/main.js",
+  "author": "Medical AI Lecture",
+  "private": true,
+  "scripts": {
+    "postinstall": "node tools/copy_ort_assets.js",
+    "export-model": "cd tools && python3 export_onnx.py",
+    "serve": "npx --yes serve www -l 5173",
+    "android:open": "cap open android",
+    "android:sync": "cap sync android",
+    "android:build": "cap sync android && cd android && ./gradlew assembleDebug && echo '\\n✅ APK : android/app/build/outputs/apk/debug/app-debug.apk\\n'",
+    "ios:open": "cap open ios",
+    "ios:sync": "cap sync ios",
+    "electron:dev": "electron electron",
+    "electron:build:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac dmg",
+    "electron:build:win": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/core": "^6.2.1",
+    "@capacitor/ios": "^6.2.1",
+    "onnxruntime-web": "1.20.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.1",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.medicalai.fracture",
+    "productName": "Fracture Classifier",
+    "directories": {
+      "output": "electron-dist"
+    },
+    "files": [
+      "electron/**/*",
+      "www/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.medical",
+      "target": [{"target": "dmg", "arch": ["arm64", "x64"]}],
+      "identity": null,
+      "gatekeeperAssess": false
+    },
+    "win": {
+      "target": [{"target": "nsis", "arch": ["x64"]}]
+    },
+    "linux": {
+      "target": ["AppImage"]
+    }
+  }
+}

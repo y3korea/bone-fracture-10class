@@ -1,0 +1,12 @@
+{
+  "appId": "com.medicalai.fracture",
+  "appName": "Fracture Classifier",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true
+  },
+  "ios": {
+    "contentInset": "always"
+  }
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🦴 Bone Fracture Classifier</title>
+<style>
+  :root {
+    --bg:#0b1220; --panel:#111a2e; --fg:#e8ecf3; --muted:#8a97b0;
+    --accent:#4285F4; --good:#34A853; --warn:#FBBC04; --bad:#EA4335;
+    --border:#1f2a44;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(180deg,#0a0f1e 0%,#0b1220 100%);
+    color:var(--fg); min-height:100vh;
+  }
+  header {
+    padding:20px 32px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  }
+  header h1 { margin:0; font-size:20px; font-weight:600; }
+  header .meta { font-size:12px; color:var(--muted); }
+  main {
+    max-width:1100px; margin:28px auto; padding:0 24px;
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  }
+  @media (max-width: 820px) { main { grid-template-columns:1fr; } }
+  .card {
+    background:var(--panel); border:1px solid var(--border);
+    border-radius:12px; padding:20px;
+  }
+  .card h2 { margin:0 0 14px; font-size:15px; color:var(--muted); font-weight:500; }
+  .drop {
+    border:2px dashed #2a3960; border-radius:10px; padding:28px;
+    text-align:center; cursor:pointer; transition:all .2s;
+  }
+  .drop:hover, .drop.dragover { border-color:var(--accent); background:#0d1730; }
+  .drop p { margin:8px 0 0; color:var(--muted); font-size:13px; }
+  .drop .big { font-size:32px; }
+  input[type=file] { display:none; }
+  .preview {
+    margin-top:14px; max-width:100%; max-height:340px; border-radius:8px;
+    display:none; background:#000;
+  }
+  .controls { margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  label.toggle { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); cursor:pointer; user-select:none; }
+  button {
+    background:var(--accent); color:white; border:none;
+    padding:10px 18px; border-radius:8px; cursor:pointer; font-size:14px;
+    font-weight:500; transition:filter .15s;
+  }
+  button:hover:not(:disabled) { filter:brightness(1.15); }
+  button:disabled { opacity:.4; cursor:not-allowed; }
+  #result { min-height:120px; }
+  .top-pred {
+    padding:14px 16px; border-radius:8px;
+    background:linear-gradient(90deg,#132243,#0b1732);
+    border:1px solid var(--border); margin-bottom:14px;
+  }
+  .top-pred .label { font-size:12px; color:var(--muted); }
+  .top-pred .value { font-size:22px; font-weight:600; margin-top:2px; }
+  .top-pred .conf { font-size:13px; color:var(--muted); margin-top:4px; }
+  .bars { display:flex; flex-direction:column; gap:6px; }
+  .bar {
+    display:grid; grid-template-columns: 170px 1fr 56px; align-items:center; gap:10px;
+    font-size:12px;
+  }
+  .bar .name { color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar .track { background:#0b1631; border-radius:4px; height:10px; overflow:hidden; border:1px solid var(--border); }
+  .bar .fill { height:100%; background:#4285F4; transition:width .4s; }
+  .bar.top .fill { background:var(--good); }
+  .bar .pct { text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .status { color:var(--muted); font-size:12px; margin-top:10px; }
+  .err { color:var(--bad); }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .chip {
+    padding:3px 8px; border-radius:12px; font-size:11px;
+    background:#0c1832; border:1px solid var(--border); color:var(--muted);
+  }
+  footer { text-align:center; padding:24px; color:var(--muted); font-size:11px; }
+  pre { overflow:auto; font-size:11px; color:#9cb0d8; background:#0b1530; padding:10px; border-radius:6px; border:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦴 Bone Fracture Classifier</h1>
+  <div class="meta" id="modelBadge">loading model info…</div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1. 이미지 업로드</h2>
+    <label for="fileInput" class="drop" id="drop">
+      <div class="big">📷</div>
+      <div>클릭 또는 드래그 앤 드롭</div>
+      <p>지원 포맷: JPG · PNG · WebP · BMP · TIFF</p>
+    </label>
+    <input type="file" id="fileInput" accept="image/*" />
+    <img class="preview" id="preview" />
+    <div class="controls">
+      <label class="toggle">
+        <input type="checkbox" id="ttaToggle" checked />
+        TTA 사용 (5× 변환 평균 — 약간 느리지만 정확도 ↑)
+      </label>
+      <button id="runBtn" disabled>🔍 예측</button>
+    </div>
+    <div class="status" id="status">이미지를 선택하면 예측이 활성화됩니다.</div>
+  </section>
+
+  <section class="card">
+    <h2>2. 예측 결과</h2>
+    <div id="result"><em style="color:var(--muted); font-size:13px;">아직 예측 결과가 없습니다.</em></div>
+  </section>
+
+  <section class="card" style="grid-column:1/-1;">
+    <h2>📊 모델 정보</h2>
+    <div id="modelInfo">loading…</div>
+  </section>
+</main>
+
+<footer>
+  PyTorch / timm → ONNX Runtime · FastAPI 데모 · 교육용
+</footer>
+
+<script>
+const $ = sel => document.querySelector(sel);
+const drop = $('#drop'),
+      fileInput = $('#fileInput'),
+      preview = $('#preview'),
+      runBtn = $('#runBtn'),
+      statusEl = $('#status'),
+      resultEl = $('#result'),
+      ttaToggle = $('#ttaToggle'),
+      modelBadge = $('#modelBadge'),
+      modelInfoEl = $('#modelInfo');
+
+let selectedFile = null;
+
+/* ── 드래그 앤 드롭 ───────────────────────────── */
+['dragenter', 'dragover'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('dragover'); })
+);
+['dragleave', 'drop'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('dragover'); })
+);
+drop.addEventListener('drop', e => {
+  const f = e.dataTransfer?.files?.[0];
+  if (f) handleFile(f);
+});
+fileInput.addEventListener('change', e => {
+  const f = e.target.files?.[0];
+  if (f) handleFile(f);
+});
+
+function handleFile(f) {
+  if (!f.type.startsWith('image/')) {
+    statusEl.textContent = '이미지 파일만 업로드 가능합니다.';
+    statusEl.classList.add('err'); return;
+  }
+  selectedFile = f;
+  statusEl.classList.remove('err');
+  statusEl.textContent = `${f.name} (${(f.size/1024).toFixed(1)} KB)`;
+  const url = URL.createObjectURL(f);
+  preview.src = url; preview.style.display = 'block';
+  runBtn.disabled = false;
+}
+
+/* ── 예측 요청 ───────────────────────────────── */
+runBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+  runBtn.disabled = true;
+  statusEl.textContent = '예측 중…';
+  statusEl.classList.remove('err');
+  resultEl.innerHTML = '<em style="color:var(--muted);">처리 중…</em>';
+  const fd = new FormData();
+  fd.append('file', selectedFile);
+  const url = `/api/predict?tta=${ttaToggle.checked ? 'true' : 'false'}`;
+  const t0 = performance.now();
+  try {
+    const res = await fetch(url, { method:'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'API error');
+    const elapsed = (performance.now() - t0).toFixed(0);
+    renderResult(data, elapsed);
+    statusEl.textContent = `✅ 완료 (서버 ${data.inference_ms}ms / 총 ${elapsed}ms)`;
+  } catch (e) {
+    statusEl.textContent = '에러: ' + e.message;
+    statusEl.classList.add('err');
+    resultEl.innerHTML = '<span class="err">예측 실패</span>';
+  } finally {
+    runBtn.disabled = false;
+  }
+});
+
+function renderResult(data, totalMs) {
+  const top = data.probabilities;
+  const first = top[0];
+  const conf = first.pct;
+  const confColor =
+    conf > 70 ? 'var(--good)' :
+    conf > 40 ? 'var(--warn)' : 'var(--bad)';
+
+  let html = `
+    <div class="top-pred">
+      <div class="label">🏆 TOP-1 예측${data.tta_used ? ' · TTA' : ''}</div>
+      <div class="value">${data.pred_class}</div>
+      <div class="conf" style="color:${confColor};">
+        신뢰도 ${conf.toFixed(1)}%
+        ${conf <= 40 ? '— 불확실 (저신뢰)' : conf >= 70 ? '— 높음' : '— 중간'}
+      </div>
+    </div>
+    <div class="bars">
+  `;
+  const maxPct = Math.max(...top.map(t => t.pct), 1);
+  top.forEach((t, i) => {
+    const w = (t.pct / maxPct * 100).toFixed(2);
+    html += `
+      <div class="bar ${i===0 ? 'top' : ''}">
+        <div class="name">${t.class}</div>
+        <div class="track"><div class="fill" style="width:${w}%"></div></div>
+        <div class="pct">${t.pct.toFixed(1)}%</div>
+      </div>`;
+  });
+  html += '</div>';
+  resultEl.innerHTML = html;
+}
+
+/* ── 모델 정보 로드 ───────────────────────────── */
+async function loadInfo() {
+  try {
+    const r = await fetch('/api/info');
+    const info = await r.json();
+    const m = info.test_metrics || {};
+    modelBadge.textContent =
+      `${info.model_label || info.model_name}  ·  ${info.img_size}px  ·  ` +
+      `F1 (TTA) ${m.f1_macro_tta?.toFixed?.(1) ?? '—'}%`;
+    const f1pc = info.per_class_f1_tta || {};
+    const sup  = info.per_class_support || {};
+    const rows = Object.keys(f1pc).map(c =>
+      `<tr>
+         <td style="padding:4px 10px;">${c}</td>
+         <td style="padding:4px 10px; text-align:right; font-variant-numeric:tabular-nums;">${f1pc[c].toFixed(1)}%</td>
+         <td style="padding:4px 10px; text-align:right; color:var(--muted);">n=${sup[c]}</td>
+       </tr>`
+    ).join('');
+    modelInfoEl.innerHTML = `
+      <div class="chips">
+        <span class="chip">모델: ${info.model_name}</span>
+        <span class="chip">IMG ${info.img_size}</span>
+        <span class="chip">provider: ${info.providers.join(' / ')}</span>
+        <span class="chip">classes: ${info.class_names.length}</span>
+      </div>
+      <div style="margin-top:14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;">
+        <div><div style="color:var(--muted); font-size:11px;">Test Acc (raw)</div>
+             <div style="font-size:18px; font-weight:600;">${m.acc_simple?.toFixed?.(2) ?? '—'}%</div></div>
+        <div><div style="color:var(--muted); font-size:11px;">Test Acc (TTA)</div>
+             <div style="font-size:18px; font-weight:600;">${m.acc_tta?.toFixed?.(2) ?? '—'}%</div></div>
+        <div><div style="color:var(--muted); font-size:11px;">F1 macro (raw)</div>
+             <div style="font-size:18px; font-weight:600;">${m.f1_macro_simple?.toFixed?.(2) ?? '—'}%</div></div>
+        <div><div style="color:var(--muted); font-size:11px;">F1 macro (TTA)</div>
+             <div style="font-size:18px; font-weight:600; color:var(--good);">${m.f1_macro_tta?.toFixed?.(2) ?? '—'}%</div></div>
+        <div><div style="color:var(--muted); font-size:11px;">F1 weighted (TTA)</div>
+             <div style="font-size:18px; font-weight:600;">${m.f1_weighted_tta?.toFixed?.(2) ?? '—'}%</div></div>
+      </div>
+      <details style="margin-top:16px;"><summary style="cursor:pointer; color:var(--muted); font-size:12px;">per-class F1 보기</summary>
+        <table style="width:100%; margin-top:10px; font-size:12px; border-collapse:collapse;">${rows}</table>
+      </details>
+    `;
+  } catch (e) {
+    modelInfoEl.innerHTML = `<pre>로드 실패: ${e.message}</pre>`;
+  }
+}
+loadInfo();
+</script>
+</body>
+</html>

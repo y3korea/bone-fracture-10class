@@ -1,0 +1,14 @@
+node_modules/
+electron-dist/
+www/ort/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+android/gradle/wrapper/gradle-wrapper.jar
+ios/App/Pods/
+ios/App/build/
+ios/DerivedData/
+*.iml
+.DS_Store
