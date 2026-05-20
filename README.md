@@ -3,12 +3,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.1%2B-EE4C2C.svg)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://y3korea.github.io/bone-fracture-10class/)
+
+> **🌐 Try it in your browser:** **https://y3korea.github.io/bone-fracture-10class/** — runs entirely on-device via ONNX Runtime Web (WASM). No backend, no install.
 
 End-to-end pipeline for **10-class bone-fracture radiograph classification**, accompanying the manuscripts submitted to *Diagnostics* (MDPI) and *Scientific Reports* (Nature). The repository covers:
 
 - **Training**: F1-optimised pipeline (v8) and Optuna-driven AutoML (v9)
 - **Server inference**: FastAPI + ONNX Runtime
 - **On-device inference**: Cross-platform app (Android / iOS / macOS / Windows) built with Capacitor + Electron
+- **Live web demo**: GitHub Pages, in-browser ONNX Runtime Web ([live](https://y3korea.github.io/bone-fracture-10class/))
 
 ---
 
