@@ -19,10 +19,13 @@ env/
 *.nbconvert.ipynb
 
 # Project data — NOT distributed (IRB / patient privacy)
-input/
-data/
+/input/
+/data/
 *.dcm
 *.dicom
+# Allow Data/ folders that are part of an .mlpackage (CoreML internal layout)
+!**/*.mlpackage/Data/
+!**/*.mlpackage/Data/**
 
 # Training artifacts (keep only released runs)
 output/run_*/
