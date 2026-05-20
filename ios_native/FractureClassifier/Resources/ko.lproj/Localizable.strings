@@ -1,0 +1,57 @@
+/* Tab labels */
+"classify" = "분류";
+"about" = "정보";
+
+/* App / nav titles */
+"app_title" = "Fracture AI";
+"about_title" = "정보";
+
+/* Classifier screen */
+"disclaimer" = "본 앱은 교육 및 연구 목적의 데모입니다. 진단·치료 의사 결정에 사용하지 마십시오. 임상 판단은 반드시 방사선 전문의의 확인을 거쳐야 합니다.";
+"no_image_hint" = "사진을 선택하거나 촬영하면 분류가 시작됩니다.";
+"pick_photo" = "사진 선택";
+"take_photo" = "촬영";
+"predict" = "예측 실행";
+"inferring" = "추론 중…";
+
+/* Result card */
+"top1_prediction" = "TOP-1 예측";
+"confidence_high" = "높은 신뢰도";
+"confidence_medium" = "중간 신뢰도";
+"confidence_low" = "낮은 신뢰도";
+
+/* Errors */
+"err_model_load" = "모델 로딩에 실패했습니다. 앱을 재실행해 주세요.";
+"err_image_decode" = "이미지를 읽지 못했습니다.";
+"err_no_result" = "결과가 비어 있습니다.";
+
+/* About */
+"about_section_model" = "모델";
+"about_model_arch" = "구조";
+"about_model_size" = "입력 크기";
+"about_model_classes" = "클래스 수";
+"about_model_runtime" = "런타임";
+"about_model_size_mb" = "모델 크기";
+
+"about_section_classes" = "지원 클래스 (10종)";
+
+"about_section_metrics" = "데이터셋·성능";
+"about_metric_dataset" = "데이터셋";
+"about_metric_split" = "Train / Val / Test";
+"about_metric_acc" = "Test Accuracy";
+
+"about_section_author" = "저자";
+"about_author_name" = "이름";
+"about_author_id" = "학번";
+"about_author_course" = "과목";
+
+"about_section_links" = "관련 링크";
+"about_link_demo" = "라이브 웹 데모 (브라우저)";
+"about_link_github" = "GitHub 소스 코드";
+"about_link_release" = "v1.0.0 릴리즈 (인용용)";
+
+"about_section_legal" = "라이선스·프라이버시";
+"about_license_body" = "본 앱의 소스 코드는 MIT License 로 배포됩니다. CoreML 모델 가중치는 동일 라이선스를 따릅니다.";
+"about_privacy_body" = "X-ray 영상은 기기 안에서만 처리됩니다. 외부 서버로 전송되지 않으며, Apple Neural Engine (ANE) 가속을 사용합니다.";
+
+"about_disclaimer_body" = "⚠️ 본 도구는 의료 기기가 아닙니다. 진단·치료 목적으로 사용 시 발생하는 모든 결과에 대해 저자는 책임을 지지 않습니다.";

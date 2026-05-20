@@ -1,0 +1,57 @@
+/* Tab labels */
+"classify" = "Classify";
+"about" = "About";
+
+/* App / nav titles */
+"app_title" = "Fracture AI";
+"about_title" = "About";
+
+/* Classifier screen */
+"disclaimer" = "This app is an educational / research demo. Do not use it for diagnosis or treatment decisions. Any clinical interpretation must be confirmed by a board-certified radiologist.";
+"no_image_hint" = "Pick or capture an X-ray photo to start classification.";
+"pick_photo" = "Pick Photo";
+"take_photo" = "Camera";
+"predict" = "Run Prediction";
+"inferring" = "Running inference…";
+
+/* Result card */
+"top1_prediction" = "TOP-1 PREDICTION";
+"confidence_high" = "high confidence";
+"confidence_medium" = "medium confidence";
+"confidence_low" = "low confidence";
+
+/* Errors */
+"err_model_load" = "Failed to load the model. Please relaunch the app.";
+"err_image_decode" = "Could not decode the image.";
+"err_no_result" = "Empty result.";
+
+/* About */
+"about_section_model" = "Model";
+"about_model_arch" = "Architecture";
+"about_model_size" = "Input size";
+"about_model_classes" = "Classes";
+"about_model_runtime" = "Runtime";
+"about_model_size_mb" = "Model size";
+
+"about_section_classes" = "Supported classes (10)";
+
+"about_section_metrics" = "Dataset & metrics";
+"about_metric_dataset" = "Dataset";
+"about_metric_split" = "Train / Val / Test";
+"about_metric_acc" = "Test accuracy";
+
+"about_section_author" = "Author";
+"about_author_name" = "Name";
+"about_author_id" = "Student ID";
+"about_author_course" = "Course";
+
+"about_section_links" = "Links";
+"about_link_demo" = "Live web demo (browser)";
+"about_link_github" = "GitHub source code";
+"about_link_release" = "v1.0.0 release (citable)";
+
+"about_section_legal" = "License & privacy";
+"about_license_body" = "The app's source code is released under the MIT License. The bundled CoreML weights follow the same license.";
+"about_privacy_body" = "X-ray images are processed entirely on-device. Nothing is uploaded to any server, and inference uses the Apple Neural Engine (ANE) when available.";
+
+"about_disclaimer_body" = "⚠️ This is not a medical device. The authors disclaim all liability for any consequence of using this tool for diagnosis or treatment.";

@@ -1,0 +1,35 @@
+name: FractureClassifier
+options:
+  bundleIdPrefix: com.wansukchoi
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: ko
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    TARGETED_DEVICE_FAMILY: "1,2"     # iPhone + iPad
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_CFBundleDisplayName: "Fracture AI"
+    INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "X-ray 영상을 갤러리에서 선택하여 분류 모델에 입력합니다. 이미지는 기기 안에서만 처리되며 외부로 전송되지 않습니다."
+    INFOPLIST_KEY_NSCameraUsageDescription: "X-ray 영상을 촬영하여 분류 모델에 입력합니다. 이미지는 기기 안에서만 처리되며 외부로 전송되지 않습니다."
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+targets:
+  FractureClassifier:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wansukchoi.fractureclassifier
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        SWIFT_EMIT_LOC_STRINGS: YES
