@@ -6,8 +6,15 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://y3korea.github.io/bone-fracture-10class/)
 
 > **🌐 Try it in your browser** — runs entirely on-device via ONNX Runtime Web (WASM). No backend, no install.
-> - **Desktop / FastAPI UI:** https://y3korea.github.io/bone-fracture-10class/web/
-> - **Mobile-friendly UI:** https://y3korea.github.io/bone-fracture-10class/
+>
+> **Two independent CDN mirrors** (use whichever is faster from your region):
+>
+> | CDN | Mobile UI | Desktop UI (FastAPI design) |
+> |---|---|---|
+> | GitHub Pages (Fastly) | https://y3korea.github.io/bone-fracture-10class/ | https://y3korea.github.io/bone-fracture-10class/web/ |
+> | Vercel edge (China-friendly) | https://fracture-10class.vercel.app/ | https://fracture-10class.vercel.app/web/ |
+>
+> Tested on Windows / macOS / Linux desktop and iOS, Samsung, Pixel, **Huawei (HarmonyOS), Xiaomi (MIUI)** mobiles. QR codes for instant phone access: [`docs/qr/`](docs/qr/).
 
 End-to-end pipeline for **10-class bone-fracture radiograph classification**, accompanying the manuscripts submitted to *Diagnostics* (MDPI) and *Scientific Reports* (Nature). The repository covers:
 
