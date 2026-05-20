@@ -11,8 +11,8 @@
 >
 > | CDN | Mobile UI | Desktop UI (FastAPI design) |
 > |---|---|---|
-> | GitHub Pages (Fastly) | https://y3korea.github.io/bone-fracture-10class/ | https://y3korea.github.io/bone-fracture-10class/web/ |
-> | Vercel edge (China-friendly) | https://fracture-10class.vercel.app/ | https://fracture-10class.vercel.app/web/ |
+> | **Vercel edge** (URL carries author's English name; China-friendly) | **https://wansuk-choi-bone-fracture.vercel.app/** | https://wansuk-choi-bone-fracture.vercel.app/web/ |
+> | GitHub Pages (Fastly, backup) | https://y3korea.github.io/bone-fracture-10class/ | https://y3korea.github.io/bone-fracture-10class/web/ |
 >
 > Tested on Windows / macOS / Linux desktop and iOS, Samsung, Pixel, **Huawei (HarmonyOS), Xiaomi (MIUI)** mobiles. QR codes for instant phone access: [`docs/qr/`](docs/qr/).
 
