@@ -5,7 +5,9 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.1%2B-EE4C2C.svg)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://y3korea.github.io/bone-fracture-10class/)
 
-> **🌐 Try it in your browser:** **https://y3korea.github.io/bone-fracture-10class/** — runs entirely on-device via ONNX Runtime Web (WASM). No backend, no install.
+> **🌐 Try it in your browser** — runs entirely on-device via ONNX Runtime Web (WASM). No backend, no install.
+> - **Desktop / FastAPI UI:** https://y3korea.github.io/bone-fracture-10class/web/
+> - **Mobile-friendly UI:** https://y3korea.github.io/bone-fracture-10class/
 
 End-to-end pipeline for **10-class bone-fracture radiograph classification**, accompanying the manuscripts submitted to *Diagnostics* (MDPI) and *Scientific Reports* (Nature). The repository covers:
 
